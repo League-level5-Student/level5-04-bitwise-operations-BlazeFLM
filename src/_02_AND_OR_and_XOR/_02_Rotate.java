@@ -2,6 +2,8 @@ package _02_AND_OR_and_XOR;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayDeque;
+
 import org.junit.jupiter.api.Test;
 
 /*
@@ -29,6 +31,8 @@ import org.junit.jupiter.api.Test;
 public class _02_Rotate {
     
     int rotateLeft(int value, int rotateAmount) {
+    	
+    	
         return -1;
     }
     

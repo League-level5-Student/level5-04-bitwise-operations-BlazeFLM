@@ -29,22 +29,32 @@ import org.junit.jupiter.api.Test;
  *   010110 in binary is equal to 22 in decimal!
  */
 public class _02_BinaryToDecimal {
-    int convertBinaryStringToDecimalInt(String binStr) {
-        return -1;
-    }
+	int convertBinaryStringToDecimalInt(String binStr) {
+		int num = 0;
+		int count = 1;
+		for (int i = binStr.length(); i > 0; i--) {
+			int binNum = Integer.parseInt(binStr.substring(i - 1, i));
+			System.out.println(binNum); 
+			num += (count * binNum); 
+			count *= 2;
+			System.out.println(num);
+		}
+		System.out.println(num);
+		return num;
+	}
 
-    @Test
-    public void TestBinToDec() {
-        String binStr = "010110";
-        int expected = 22;
-        assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
-        
-        binStr = "11110000";
-        expected = 240;
-        assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
-        
-        binStr = "10100101";
-        expected = 165;
-        assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
-    }
+	@Test
+	public void TestBinToDec() {
+		String binStr = "010110";
+		int expected = 22;
+		assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
+
+		binStr = "11110000";
+		expected = 240;
+		assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
+
+		binStr = "10100101";
+		expected = 165;
+		assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
+	}
 }
