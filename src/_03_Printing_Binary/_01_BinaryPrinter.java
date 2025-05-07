@@ -29,6 +29,8 @@ public class _01_BinaryPrinter {
 			}
 		} while (b != 0);
 		System.out.println(bin);
+		System.out.println();
+
 	}
 
 	public static void printShortBinary(short s) {
@@ -38,8 +40,8 @@ public class _01_BinaryPrinter {
 		// Use bit shifting and masking (&) to save the first
 		// 8 bits of s in one byte, and the second 8 bits of
 		// s in the other byte
-		byte a = (byte) (s & 0b11111111);
-		byte b = (byte) (s >> 8);
+		byte a = (byte) (s >> 8);
+		byte b = (byte) ((s << 8) >> 8);
 		// Call printByteBinary twice using the two bytes
 		// Make sure they are in the correct order
 		printByteBinary(b);
@@ -55,15 +57,17 @@ public class _01_BinaryPrinter {
 
 		// Call printShortBinary twice using the two short variables
 		// Make sure they are in the correct order
+
 	}
 
 	public void printLongBinary(long l) {
 		// Use the same method as before to complete this method
+
 	}
 
 	public static void main(String[] args) {
 		// Test your methods here
-		printByteBinary((byte) 01010101);
+		// printByteBinary((byte) 01010101);
 		printShortBinary((short) 0b0011001010101010);
 
 	}
