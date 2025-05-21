@@ -19,17 +19,11 @@ public class _01_BinaryPrinter {
 
 		// Use this method to print the remaining 7 bits of b
 		// 01010101
-		String bin = "";
-		do {
-			b >>>= 1;
-			if (b % 2 == 0) {
-				bin += "0";
-			} else {
-				bin += "1";
-			}
-		} while (b != 0);
-		System.out.println(bin);
-		System.out.println();
+
+		for(int i = 7; i >= 0; i--) {
+			int bit = (b >> i) & 1;
+			System.out.print(bit);
+		}
 
 	}
 
@@ -48,27 +42,36 @@ public class _01_BinaryPrinter {
 		printByteBinary(a);
 	}
 
-	public void printIntBinary(int i) {
+	public static void printIntBinary(int i) {
 		// Create 2 short variables
-
+		short a = 0b0000000000000000;
+		short b = 0b0000000000000000;
 		// Use bit shifting and masking (&) to save the first
 		// 16 bits of i in one short, and the second 16 bits of
 		// i in the other short
-
+		a = (short) (i >> 16);
+		b = (short) (i & 65535);
 		// Call printShortBinary twice using the two short variables
 		// Make sure they are in the correct order
-
+		printShortBinary(a);
+		printShortBinary(b);
 	}
 
 	public void printLongBinary(long l) {
 		// Use the same method as before to complete this method
-
+		int a = (int) (l >> 65535);
+		//left off here
+		//int b = (int) (l >> ); 
 	}
 
 	public static void main(String[] args) {
 		// Test your methods here
-		// printByteBinary((byte) 01010101);
-		printShortBinary((short) 0b0011001010101010);
+		printByteBinary((byte) 13);
+		System.out.println();
+		printShortBinary((short) 9256);
+		System.out.println();
+		printIntBinary((int) 625397);
+		System.out.println();
 
 	}
 }
