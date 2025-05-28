@@ -57,11 +57,15 @@ public class _01_BinaryPrinter {
 		printShortBinary(b);
 	}
 
-	public void printLongBinary(long l) {
+	public static void printLongBinary(long l) {
 		// Use the same method as before to complete this method
-		int a = (int) (l >> 65535);
-		//left off here
-		//int b = (int) (l >> ); 
+		int a = (int) (l >> 32);
+		int b = (int)(l & 4294967295L);
+		
+		printIntBinary(a);
+		printIntBinary(b);
+		
+		
 	}
 
 	public static void main(String[] args) {
@@ -72,6 +76,7 @@ public class _01_BinaryPrinter {
 		System.out.println();
 		printIntBinary((int) 625397);
 		System.out.println();
+		printLongBinary((long) 814881245);
 
 	}
 }
