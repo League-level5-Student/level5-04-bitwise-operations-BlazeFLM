@@ -41,132 +41,147 @@ import javax.swing.JTextField;
  * decimal value, and ASCII value, if applicable.
  */
 public class _02_HexadecimalPrinter implements ActionListener {
-    JFrame frame;
-    JPanel panel;
-    JTextField hexResult, decimalResult, asciiResult, inputTextField;
-    JLabel labelAscii, labelDecimal, labelHex;
-    JButton convertButton;
+	JFrame frame;
+	JPanel panel;
+	JTextField hexResult, decimalResult, asciiResult, inputTextField;
+	JLabel labelAscii, labelDecimal, labelHex;
+	JButton convertButton;
 
-    /*
-     * Complete these 3 methods. Assume the binary value is an int (32 bits).
-     * You don't have to handle negative numbers unless you want the challenge!
-     */
-    String binaryToHex(String binaryStr) {
-    	int num = Integer.parseInt(binaryStr);
-    	System.out.println(num);
-    	String lower = binaryStr.substring(0,16);
-    	//here
-    	
-    	
-        return "-";
-    	
-    }
-    
-    String binaryToDec(String binaryStr) {
-    	int num = 0; 
-    	int ind = 0;
-    	
-    	for(int i = binaryStr.length() - 1; i >= 0; i--) {
-    		if(binaryStr.charAt(i) == '1') {
-    			num |= (1 << ind);
-    		}
-    		ind++;
-    	}
-        return num + "";
-    }
+	/*
+	 * Complete these 3 methods. Assume the binary value is an int (32 bits). You
+	 * don't have to handle negative numbers unless you want the challenge!
+	 */
+	String binaryToHex(String binaryStr) {
+		char[] hexLetters = { 'A', 'B', 'C', 'D', 'E', 'F' };
 
-    /*
-     * ASCII values are exactly 8 bits so return '-' if there isn't.
-     */
-    String binaryToAscii(String binaryStr) {
-        if (binaryStr.length() != 8) {
-            return "-";
-        }
+		String hexNum = "";
 
-        return "-";
-    }
-    
-    public static void main(String[] args) {
-        new _02_HexadecimalPrinter().start();
-    }
+		int num = Integer.parseInt(binaryToDec(binaryStr));
 
-    public void start() {
-        frame = new JFrame("Hexadecimal Printer");
-        panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        hexResult = new JTextField(12);
-        decimalResult = new JTextField(12);
-        asciiResult = new JTextField(12);
-        inputTextField = new JTextField(25);
-        convertButton = new JButton("Convert");
-        labelAscii = new JLabel("ASCII:");
-        labelDecimal = new JLabel("Decimal:");
-        labelHex = new JLabel("Hexadecimal:");
-        
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        
-        labelAscii.setFont(new Font("Arial", Font.PLAIN, 30));
-        labelDecimal.setFont(new Font("Arial", Font.PLAIN, 30));
-        labelHex.setFont(new Font("Arial", Font.PLAIN, 30));
-        inputTextField.setFont(new Font("Arial", Font.PLAIN, 30));
-        decimalResult.setFont(new Font("Arial", Font.PLAIN, 30));
-        asciiResult.setFont(new Font("Arial", Font.PLAIN, 30));
-        hexResult.setFont(new Font("Arial", Font.PLAIN, 30));
-        convertButton.setFont(new Font("Arial", Font.PLAIN, 30));
-        convertButton.addActionListener(this);
-        
-        inputTextField.setText("<Input binary number>");
-        inputTextField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusLost(FocusEvent e) { }
-            
-            @Override
-            public void focusGained(FocusEvent e) {
-                if( inputTextField.getText().contains("binary") ) {
-                    inputTextField.setText("");
-                }
-            }
-        });
-        
-        addObjectToPanel(inputTextField, 0, 0, 2);
-        addObjectToPanel(convertButton, 1, 0, 2);
-        addObjectToPanel(labelAscii, 2, 0, 1);
-        addObjectToPanel(asciiResult, 2, 1, 1);
-        addObjectToPanel(labelDecimal, 3, 0, 1);
-        addObjectToPanel(decimalResult, 3, 1, 1);
-        addObjectToPanel(labelHex, 4, 0, 1);
-        addObjectToPanel(hexResult, 4, 1, 1);
-        frame.pack();
-    }
+		while (num != 0) {
+			int remainder = num % 16;
+			if (remainder >= 10) {
+				hexNum = hexLetters[remainder - 10] + hexNum;
+			} else {
+				hexNum = remainder + hexNum;
+			}
+			num /= 16;
+		}
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+		return hexNum;
 
-        // 18. If convertButton was pressed...
-        JButton buttonPressed = (JButton) e.getSource();
-        if( buttonPressed == convertButton) {
-            String binaryStr = inputTextField.getText();
-            
-            String asciiStr = binaryToAscii(binaryStr);
-            String decimalStr = binaryToDec(binaryStr);
-            String hexStr = binaryToHex(binaryStr);
-            
-            asciiResult.setText(asciiStr);
-            decimalResult.setText(decimalStr);
-            hexResult.setText(hexStr);
-        }
-    }
+	}
 
-    private void addObjectToPanel(JComponent component, int row, int column, int cellWidth) {
-        GridBagConstraints constraints = new GridBagConstraints();
+	String binaryToDec(String binaryStr) {
+		int num = 0;
+		int ind = 0;
 
-        constraints.fill = GridBagConstraints.HORIZONTAL;       // This expands the JComponent to fill gridwidth
-        constraints.gridx = column;             // This is the column the JComponent is placed
-        constraints.gridy = row;                // This is the row the JComponent is placed
-        constraints.gridwidth = cellWidth;      // This is how many horizontal cells to span across
-        constraints.gridheight = 1;             // This is how many vertical cells to span across
-        this.panel.add(component, constraints);
-    }
+		for (int i = binaryStr.length() - 1; i >= 0; i--) {
+			if (binaryStr.charAt(i) == '1') {
+				num |= (1 << ind);
+			}
+			ind++;
+		}
+		return num + "";
+	}
+
+	/*
+	 * ASCII values are exactly 8 bits so return '-' if there isn't.
+	 */
+	String binaryToAscii(String binaryStr) {
+		if (binaryStr.length() != 8) {
+			return "-";
+		}
+
+		int num = Integer.parseInt(binaryToDec(binaryStr));
+
+		char c = (char) num;
+
+		return c + "";
+	}
+
+	public static void main(String[] args) {
+		new _02_HexadecimalPrinter().start();
+	}
+
+	public void start() {
+		frame = new JFrame("Hexadecimal Printer");
+		panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		hexResult = new JTextField(12);
+		decimalResult = new JTextField(12);
+		asciiResult = new JTextField(12);
+		inputTextField = new JTextField(25);
+		convertButton = new JButton("Convert");
+		labelAscii = new JLabel("ASCII:");
+		labelDecimal = new JLabel("Decimal:");
+		labelHex = new JLabel("Hexadecimal:");
+
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(panel);
+
+		labelAscii.setFont(new Font("Arial", Font.PLAIN, 30));
+		labelDecimal.setFont(new Font("Arial", Font.PLAIN, 30));
+		labelHex.setFont(new Font("Arial", Font.PLAIN, 30));
+		inputTextField.setFont(new Font("Arial", Font.PLAIN, 30));
+		decimalResult.setFont(new Font("Arial", Font.PLAIN, 30));
+		asciiResult.setFont(new Font("Arial", Font.PLAIN, 30));
+		hexResult.setFont(new Font("Arial", Font.PLAIN, 30));
+		convertButton.setFont(new Font("Arial", Font.PLAIN, 30));
+		convertButton.addActionListener(this);
+
+		inputTextField.setText("<Input binary number>");
+		inputTextField.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (inputTextField.getText().contains("binary")) {
+					inputTextField.setText("");
+				}
+			}
+		});
+
+		addObjectToPanel(inputTextField, 0, 0, 2);
+		addObjectToPanel(convertButton, 1, 0, 2);
+		addObjectToPanel(labelAscii, 2, 0, 1);
+		addObjectToPanel(asciiResult, 2, 1, 1);
+		addObjectToPanel(labelDecimal, 3, 0, 1);
+		addObjectToPanel(decimalResult, 3, 1, 1);
+		addObjectToPanel(labelHex, 4, 0, 1);
+		addObjectToPanel(hexResult, 4, 1, 1);
+		frame.pack();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		// 18. If convertButton was pressed...
+		JButton buttonPressed = (JButton) e.getSource();
+		if (buttonPressed == convertButton) {
+			String binaryStr = inputTextField.getText();
+
+			String asciiStr = binaryToAscii(binaryStr);
+			String decimalStr = binaryToDec(binaryStr);
+			String hexStr = binaryToHex(binaryStr);
+
+			asciiResult.setText(asciiStr);
+			decimalResult.setText(decimalStr);
+			hexResult.setText(hexStr);
+		}
+	}
+
+	private void addObjectToPanel(JComponent component, int row, int column, int cellWidth) {
+		GridBagConstraints constraints = new GridBagConstraints();
+
+		constraints.fill = GridBagConstraints.HORIZONTAL; // This expands the JComponent to fill gridwidth
+		constraints.gridx = column; // This is the column the JComponent is placed
+		constraints.gridy = row; // This is the row the JComponent is placed
+		constraints.gridwidth = cellWidth; // This is how many horizontal cells to span across
+		constraints.gridheight = 1; // This is how many vertical cells to span across
+		this.panel.add(component, constraints);
+	}
 }
